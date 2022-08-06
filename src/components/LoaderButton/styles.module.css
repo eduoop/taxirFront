@@ -1,0 +1,14 @@
+.button_disabled {
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    font-size: 1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    background-color: #e8b41665;
+    border: 1px solid #E8B516;
+    cursor: pointer;
+    color: white;
+    height: fit-content;
+    cursor: default;
+}

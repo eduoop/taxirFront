@@ -1,0 +1,20 @@
+.input {
+    width: 100%;
+    padding: .8em;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid rgb(181, 181, 181);
+    background-color: transparent;
+    font-size: 1em;
+    transition: .3s;
+    font-weight: 500;
+}
+
+.input:focus {
+    background-color: rgba(140, 140, 140, 0.116);
+    border: 1px solid rgb(143, 143, 143);
+}
+
+.invalid_field {
+    border: 1px solid red;
+}
