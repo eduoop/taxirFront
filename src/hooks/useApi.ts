@@ -9,12 +9,12 @@ export const useApi = () => ({
         const response = await api.post('/validade', { token })
         return response.data
     },
-    signin: async (email: string, password: string) => {
-        const response = await api.post('/v1/auth/login', {email, password})
+    singin: async (email: string, password: string) => {
+        const response = await api.post('/auth', {email, password})
         return response.data
     },
     logout: async () => {
-        const response = await api.post('/v1/auth/logout')
+        const response = await api.delete('/auth')
         return response.data
     }
 })

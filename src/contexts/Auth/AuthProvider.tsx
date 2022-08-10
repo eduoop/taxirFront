@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element}) => {
     }, [])
 
     const singin = async (email: string, password: string) => {
-        const data = await api.signin(email, password)
+        const data = await api.singin(email, password)
         if(data.user && data.token) {
             setUser(data.user[0])
         
