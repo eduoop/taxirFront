@@ -10,12 +10,13 @@ type Props = {
   value: string;
   isNull: boolean
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  setNullCamp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const MaskInput = ({ id, name, type, mask, isNull = false, value, setValue }: Props) => {
+export const MaskInput = ({ id, name, type, mask, isNull = false, value, setValue, setNullCamp }: Props) => {
 
   useEffect(() => {
-    isNull = false
+    setNullCamp(false)
   }, [value])
 
   return (

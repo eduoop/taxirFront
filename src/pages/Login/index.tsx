@@ -3,15 +3,15 @@ import styles from "./styles.module.css";
 import { Input } from "../../components/Input";
 import { LoaderButton } from "../../components/LoaderButton";
 import { Button } from "../../components/Button";
-import whiteLoader from "../../assets/whiteLoader.svg";
-import { BsEmojiHeartEyes } from "react-icons/bs";
 import toast, { Toaster } from "react-hot-toast";
 import { api } from "../../Config/api";
-import { AuthContext } from "../../contexts/Auth/AuthContext";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/auth/AuthContext";
+import { AuthProvider } from "../../context/auth/AuthProvider";
 
 export const Login = () => {
+
+
   const [create, setCreate] = useState("login");
   const [role, setRole] = useState("");
   const [loader, setloader] = useState(false);
@@ -24,11 +24,20 @@ export const Login = () => {
 
   const [nullEmail, setNullEmail] = useState(false);
   const [nullPassword, setNullPassword] = useState(false);
-
   const auth = useContext(AuthContext);
+
+  const location = useLocation();
+  let createNew: boolean;
+
+  if (location.state) {
+    const auxState = location.state as LocationState;
+    createNew = auxState.createNew;
+  }
 
   const send = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    console.log(auth.signin('eduop@gmail.outsrsddgvo', 'eduop').then((res) => {return res}))
 
     if (create === "email") {
       // verifications
@@ -97,7 +106,7 @@ export const Login = () => {
             if (
               err.response.data.message === "E_ROW_NOT_FOUND: Row not found"
             ) {
-              toast.error("Este email não existe em nosso banco");
+              toast.error("Este email ainda não está cadastrado");
             }
           });
       }
@@ -118,12 +127,14 @@ export const Login = () => {
 
       if (email && password) {
         setloader(true);
-        const isLogged = await auth.singin(email, password).catch(() => {
-          setloader(false);
+        const isLogged = await auth.signin(email, password).catch(() => {
+          toast.error("Email ou senha incorretos");
+  
+          setloader(false)
         });
         if (isLogged) {
-          navigate("/home");
-          setloader(false);
+          navigate("/");
+          setloader(false)
         }
       }
     }
@@ -132,17 +143,28 @@ export const Login = () => {
   useEffect(() => {
     setNullEmail(false);
     setNullPassword(false);
+    console.log(create)
   }, [create]);
+
+
+  useEffect(() => {
+    if(createNew) {
+      setCreate('email')
+    }
+  }, [createNew!]);
+
+  interface LocationState {
+    createNew: boolean;
+  }
 
   return (
     <div className={styles.container}>
       <div className={styles.login_card}>
-        {create === "email" ||
-          (create === "forgotPassword" && (
+        {create !== 'login' && (
             <div className={styles.create_email_message}>
               <h1>Uma confirmação será enviada ao email</h1>
             </div>
-          ))}
+          )}
         <form onSubmit={(e) => send(e)} className={styles.form}>
           <div className={styles.inputs_container}>
             <div className={styles.inputs}>

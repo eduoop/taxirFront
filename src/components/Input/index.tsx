@@ -11,7 +11,7 @@ type Props = {
   value: string
 }
 
-export const Input = ({ id, type, setValue, isNull = false, value,setNullCamp  }: Props) => {
+export const Input = ({ id, type, setValue, isNull = false, value, setNullCamp  }: Props) => {
 
   useEffect(() => {
     setNullCamp(false)

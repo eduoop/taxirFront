@@ -5,9 +5,6 @@ import { Input } from "../../components/Input";
 import { DisabledInput } from "../../components/DisabledInput";
 import { MaskInput } from "../../components/MaskInput";
 import { Button } from "../../components/Button";
-import whiteLoader from "../../assets/whiteLoader.svg";
-import { BsEmojiHeartEyes } from "react-icons/bs";
-import InputMask from 'react-input-mask';
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../Config/api";
 import toast from "react-hot-toast";
@@ -59,7 +56,7 @@ export const CreateAccount = () => {
    } else {
      setNullPhone(false)
     }
-    
+
     if(!password) {
     setNullPassword(true)
    } else {
@@ -86,16 +83,21 @@ export const CreateAccount = () => {
       passwordConfirmation: passwordConfirmation
     })
     .then((res) => {
-      console.log(res)
+      navigate('/login')
       setloader(false)
     })
     .catch((err) => {
-      console.log(err)
+      if(err.response.data.code === 'ER_DUP_ENTRY') {
+        toast.error('Este telefone já está em uso')
+        setNullPhone(true)
+      }
       setloader(false)
     })
    }
    
   }
+
+  console.log(phone.length)
 
   return (
     <div className={styles.container}>
@@ -112,7 +114,7 @@ export const CreateAccount = () => {
               </div>
               <div className={styles.inputs}>
                 <label htmlFor="password">Telefone</label>
-                <MaskInput mask="(99) 99999-9999" id="name" name="name" type="text" isNull={nullPhone} value={phone} setValue={setPhone}/>
+                <MaskInput mask="(99) 99999-9999" id="name" name="name" type="text" isNull={nullPhone} value={phone} setValue={setPhone} setNullCamp={setNullPhone}/>
               </div>
               <div className={styles.inputs}>
                 <label htmlFor="password">Senha</label>

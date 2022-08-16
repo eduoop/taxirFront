@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--yellow-secondary);
+    background: linear-gradient(to right, var(--yellow-primary), var(--yellow-secondary));
 }
 
 .login_card {
