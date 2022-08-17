@@ -63,3 +63,47 @@
     width: 40vw;
     transform: scaleX(-1);
 }
+
+.logo_end_text {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 5em;
+}
+
+.logo_end_text h1{
+    width: 100%;
+    text-align: center;
+    background: #200F00;
+    padding: .3em 2em;
+    border-radius: 12px 12px 2px 2px;
+    font-family: 'Nunito', sans-serif;
+    color: #E8B516;
+    font-size: 3em
+}
+
+@media (max-width: 800px) {
+  .text button {
+    font-size: 2em;
+  }
+ 
+}
+
+@media (max-width: 700px) {
+    .image {
+        display: none;
+    }
+
+    .text {
+        gap: 4em;
+    }
+    .text h2 {
+        font-size: 2.5em;
+        text-align: center;
+      }
+      .text {
+        justify-content: center;
+        align-items: center;
+      }
+}
