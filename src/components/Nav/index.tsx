@@ -15,9 +15,9 @@ export const Nav = ({ currentNav, setCurrentNav }: Props) => {
   return (
     <div className={styles.nav}>
         <ul>
-            <Link to="/travels"><li><TbLayoutList/></li></Link>
-            <Link to="/login">  <li><RiSuitcase2Line/></li></Link>
-            <Link to="/create-account/:key"> <li><MdPersonOutline/></li></Link>
+            <Link to="/travels" onClick={() => {setCurrentNav('travels')}}><li><TbLayoutList className={currentNav === 'travels' ? `${styles.active_nav}` : ''}/></li></Link>
+            <Link to="/login" onClick={() => {setCurrentNav('myTravels')}}>  <li><RiSuitcase2Line className={currentNav === 'myTravels' ? `${styles.active_nav}` : ''}/></li></Link>
+            <Link to="/create-account/:key" onClick={() => {setCurrentNav('profile')}}> <li><MdPersonOutline className={currentNav === 'profile' ? `${styles.active_nav}` : ''}/></li></Link>
         </ul>
     </div>
   )

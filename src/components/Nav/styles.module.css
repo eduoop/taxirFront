@@ -21,7 +21,21 @@
     outline: none;
 }
 
+.nav ul li {
+    padding: .2em .4em;
+    border-radius: 4px;
+    transition: .3s;
+}
+
 .nav ul li svg {
     color: rgba(255, 255, 255, 0.741);
     font-size: 1.4em;
+}
+
+.nav ul li:hover {
+    background-color: rgba(115, 115, 115, 0.27);
+}
+
+.active_nav {
+    color: var( --yellow-secondary) !important;
 }

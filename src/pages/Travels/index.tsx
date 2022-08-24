@@ -4,7 +4,12 @@ import styles from './styles.module.css'
 import {TravelCard} from '../../components/TravelCard'
 import { Travel } from '../../models/travel.model'
 
-export const Travels = () => {
+type Props = {
+    currentNav: string;
+    setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export const Travels = ({currentNav, setCurrentNav}: Props) => {
     const token = localStorage.getItem("authToken")
     const [travels, setTravels] = useState<Travel[]>()
 
@@ -16,6 +21,12 @@ export const Travels = () => {
             }
         })
         .then((res) => {setTravels(res.data)})
+    }, [])
+
+    useEffect(() => {
+        if(currentNav !== 'travels') {
+            setCurrentNav('travels')
+        }
     }, [])
 
   return (
