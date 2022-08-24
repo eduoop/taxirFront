@@ -49,9 +49,7 @@ function App() {
             }}
           />
         </div>
-        {auth.user && (
           <Nav currentNav={currentNav} setCurrentNav={setCurrentNav} />
-        )}
         {!auth.user && <Footer />}
       </Router>
     </>
