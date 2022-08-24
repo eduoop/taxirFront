@@ -9,6 +9,9 @@ export const Home = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.login}>
+        <button onClick={() => navigate("/login")}>Login</button>
+      </div>
         <div className={styles.main}>
             <div className={styles.text}>
               <div className={styles.logo_end_text}>

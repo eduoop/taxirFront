@@ -12,6 +12,10 @@ a {
   text-decoration: none;
 }
 
+.not_hide * {
+  overflow-y: hidden !important;
+}
+
 :root {
   --yellow-primary: #FFE801;
   --yellow-secondary: #E8B516;

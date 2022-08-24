@@ -37,8 +37,6 @@ export const Login = () => {
   const send = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(auth.signin('eduop@gmail.outsrsddgvo', 'eduop').then((res) => {return res}))
-
     if (create === "email") {
       // verifications
       console.log("email");
@@ -127,13 +125,13 @@ export const Login = () => {
 
       if (email && password) {
         setloader(true);
-        const isLogged = await auth.signin(email, password).catch(() => {
+        const isLogged = await auth.signin(email, password)
+        .catch(() => {
           toast.error("Email ou senha incorretos");
-  
           setloader(false)
         });
         if (isLogged) {
-          navigate("/");
+          navigate("/travels");
           setloader(false)
         }
       }

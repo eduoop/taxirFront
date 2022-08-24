@@ -1,0 +1,8 @@
+.travel_card {
+    display: flex;
+    gap: 1em;
+    padding: .5em 1em;
+    border-radius: 4px;
+    background-color: chocolate;
+    height: fit-content;
+}

@@ -1,0 +1,27 @@
+.nav {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+}
+
+.nav ul {
+    display: flex;
+    gap: 2em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background-color: #120800;
+}
+
+.nav a {
+    text-decoration: none;
+    outline: none;
+}
+
+.nav ul li svg {
+    color: rgba(255, 255, 255, 0.741);
+    font-size: 1.4em;
+}

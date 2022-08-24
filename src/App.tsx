@@ -7,18 +7,24 @@ import {CreateAccount} from '../src/pages/CreateAccount'
 import {ForgotPassword} from '../src/pages/ForgotPassword'
 import {Home} from '../src/pages/Home'
 import {Footer} from '../src/components/Footer'
-
+import {Travels} from '../src/pages/Travels'
+import {Nav} from '../src/components/Nav'
 
 function App() {
+
+  const [currentNav, setCurrentNav] = useState('')
+
   return (
    <>
       <Router>
         <Routes>
-          <Route path='/' element={<Home/>}/>
+          <Route path="/" element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
+          <Route path='/travels' element={<Travels/>}/>
           <Route path='/create-account/:key' element={<CreateAccount/>}/>
           <Route path='/forgot-password/:key' element={<ForgotPassword/>}/>
         </Routes>
+        <div className='not_hide'>
         <Toaster
         position="bottom-center"
         toastOptions={{
@@ -30,6 +36,8 @@ function App() {
           },
         }}
       />
+        </div>
+        <Nav currentNav={currentNav} setCurrentNav={setCurrentNav}/>
       <Footer/>
       </Router>
    </>
