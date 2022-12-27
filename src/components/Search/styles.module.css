@@ -1,0 +1,36 @@
+.container {
+    width: 80%;
+    margin-top: 2em;
+    box-shadow: rgba(37, 37, 39, 0.135) 0.5rem 0.5rem 2rem 0px;
+    height: fit-content;
+    display: flex;
+    border-radius: 30px;
+    padding: .8em 2em;
+    align-items: center;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
+.container input {
+    width: 100%;
+    padding: .5em;
+    border: none;
+    outline: none;
+    font-size: 1.2em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.search_btn {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+.search_btn svg {
+    font-size: 1.8em;
+    cursor: pointer;
+}
+

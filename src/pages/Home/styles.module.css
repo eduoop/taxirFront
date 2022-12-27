@@ -2,7 +2,7 @@
     height: 100vh;
     width: 100vw;
     flex-direction: column;
-    background: linear-gradient(to right, var(--yellow-primary), var(--yellow-secondary));
+    background: linear-gradient(to right, rgb(224, 195, 9), var(--yellow-secondary));
     display: flex;
     justify-content: center;
     gap: .5em;

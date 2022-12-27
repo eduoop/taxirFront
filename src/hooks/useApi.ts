@@ -17,8 +17,12 @@ export const useApi = () => ({
     const response = await api.post("/auth", { email, password });
     return response.data;
   },
-  logout: async () => {
-    const response = await api.delete("/auth");
+  logout: async (token: string | null) => {
+    const response = await api.delete("/auth", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
     return response.data;
   },
 });

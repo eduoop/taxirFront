@@ -13,12 +13,13 @@
     justify-content: center;
     align-items: center;
     height: 50px;
-    background-color: #120800;
+    background-color: #000000;
 }
 
 .nav a {
     text-decoration: none;
     outline: none;
+    cursor: pointer;
 }
 
 .nav ul li {

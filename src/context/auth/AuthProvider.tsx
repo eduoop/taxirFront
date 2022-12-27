@@ -5,6 +5,7 @@ import { AuthContext } from "./AuthContext";
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const [user, setUser] = useState<User | null>(null);
+  const token = localStorage.getItem(`authToken`)
   const api = useApi();
 
   useEffect(() => {
@@ -19,7 +20,6 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     const data = await api.signin(email, password);
     if (data.user && data.token) {
       setUser(data.user);
-      console.log(data.user)
 
       const loggedUser = data.user;
       setToken(data.token.token);
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   const singout = async () => {
-    await api.logout();
+    await api.logout(token);
     localStorage.removeItem("user");
     setToken("");
     setUser(null);

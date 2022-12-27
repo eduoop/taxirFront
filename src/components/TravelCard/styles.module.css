@@ -1,8 +1,69 @@
 .travel_card {
-    display: flex;
-    gap: 1em;
-    padding: .5em 1em;
-    border-radius: 4px;
-    background-color: chocolate;
+    width: 290px;
     height: fit-content;
+    border-radius: 1rem;
+    padding: .5em;
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.328);
+    cursor: pointer;
+    align-items: center;
+    transition: .3s;
+}
+
+.travel_card:hover {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.232);
+}
+
+.route {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+.route h2 {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 1.7em;
+}
+
+.infos {
+    display: flex;    
+    flex-direction: column;
+    gap: .5em;
+    margin-top: 1em;
+    margin-bottom: 1.3em;
+}
+
+.info_item {
+    display: flex;
+    align-items: center;
+    gap: .3em;
+}
+
+.info_item h2 {
+    font-weight: 400;
+    font-size: 1em;
+}
+
+.participe {
+    width: 100%;
+    text-transform: uppercase;
+    background-color: transparent;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    border: 1px solid black;
+    padding: .7em 0;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 1.3em;
+    transition: .3s;
+}
+
+.participe:hover {
+    background-color: black;
+    color: white;
 }

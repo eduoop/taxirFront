@@ -1,0 +1,108 @@
+.create_travel_container {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    background-color: #000;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    padding: 1em;
+}
+
+.header h1 {
+    color: white;
+    font-family: "Roboto";
+    font-weight: 600;
+}
+
+.create_travel_container form {
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.state_end_city {
+    display: flex;
+    align-items: center;
+}
+
+.two_items_division {
+    display: flex;
+    gap: 3em;
+    align-items: center;
+}
+
+.text_input {
+    font-family: "Roboto";
+    height: 100%;
+    padding: .5em;
+    border-radius: 6px;
+    outline: none;
+    font-size: 1.2em;
+    border: 2px solid black;
+}
+
+.text_input:focus {
+    background-color: rgba(77, 132, 234, 0.137);
+}
+
+.state_end_city select {
+    width: 60px;
+    margin-right: 1em;
+    appearance: none;
+    background: #000;
+    border-radius: 8px;
+    padding: 1em;
+    font-size: 16px;
+    color: #c0d4df;
+}
+
+.state_end_city select::-webkit-scrollbar {
+    width: 6px;
+}
+
+.state_end_city select::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.state_end_city select::-webkit-scrollbar-thumb {
+    background-color: rgb(226, 221, 221);
+    outline: 1px solid slategrey;
+    border-radius: 20px;
+}
+
+.set_places {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+.buttons_set {
+    display: flex;
+    gap: .5em;
+}
+
+.buttons_set button {
+    background-color: #000;
+    color: white;
+    padding: .2em .5em;
+    font-size: 1.5em;
+    border-radius: 9px;
+    cursor: pointer;
+}
+
+.set_places_name {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+
+.set_places_name h2 {
+    font-family: "Roboto";
+    font-weight: 500;
+}

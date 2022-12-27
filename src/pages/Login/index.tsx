@@ -60,7 +60,7 @@ export const Login = () => {
         .post("/users/register", {
           redirectUrl: "http://127.0.0.1:5173/create-account",
           email: email,
-          role: "driver",
+          role: role,
 
           headers: {
             "Content-Type": "application/json",
@@ -141,7 +141,7 @@ export const Login = () => {
   useEffect(() => {
     setNullEmail(false);
     setNullPassword(false);
-    console.log(create)
+    setRole('')
   }, [create]);
 
 

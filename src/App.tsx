@@ -10,11 +10,14 @@ import { Login } from "../src/pages/Login";
 import toast, { Toaster } from "react-hot-toast";
 import { CreateAccount } from "../src/pages/CreateAccount";
 import { ForgotPassword } from "../src/pages/ForgotPassword";
+import { MyTravels } from "../src/pages/MyTravels";
 import { Home } from "../src/pages/Home";
 import { Footer } from "../src/components/Footer";
 import { Travels } from "../src/pages/Travels";
 import { Nav } from "../src/components/Nav";
 import { AuthContext } from "./context/auth/AuthContext";
+import { MyTravelsDriver } from "./pages/MyTravelsDriver";
+import { CreateTravel } from "./pages/CreateTravel";
 
 function App() {
   const [currentNav, setCurrentNav] = useState("");
@@ -27,6 +30,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/create-new-travel" element={<CreateTravel />} />
+          <Route path="/my-travels-driver" element={<MyTravelsDriver />} />
+          <Route path="/my-travels" element={<MyTravels />} />
           <Route
             path="/travels"
             element={
@@ -49,8 +55,10 @@ function App() {
             }}
           />
         </div>
-          <Nav currentNav={currentNav} setCurrentNav={setCurrentNav} />
-        {!auth.user && <Footer />}
+        {auth.user &&
+          <Nav currentNav={currentNav} setCurrentNav={setCurrentNav} auth={auth} />
+        }
+        {!auth.user && currentNav !== `/` && <Footer />}
       </Router>
     </>
   );
