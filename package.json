@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.2",
     "@types/axios": "^0.14.0",
     "@types/react-input-mask": "^3.0.1",
     "axios": "^0.27.2",
@@ -17,6 +20,7 @@
     "react-hot-toast": "^2.3.0",
     "react-icons": "^4.4.0",
     "react-input-mask": "^2.0.4",
+    "react-multi-date-picker": "^3.3.4",
     "react-router-dom": "^6.3.0",
     "use-context": "^0.0.1"
   },

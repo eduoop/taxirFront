@@ -18,6 +18,9 @@ import { Nav } from "../src/components/Nav";
 import { AuthContext } from "./context/auth/AuthContext";
 import { MyTravelsDriver } from "./pages/MyTravelsDriver";
 import { CreateTravel } from "./pages/CreateTravel";
+import { TravelProfile } from "./pages/TravelProfile";
+import { EditTravel } from "./pages/EditTravel";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
   const [currentNav, setCurrentNav] = useState("");
@@ -27,12 +30,15 @@ function App() {
   return (
     <>
       <Router>
+      <ScrollToTop/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/create-new-travel" element={<CreateTravel />} />
+          <Route path="/edit-travel/:id" element={<EditTravel />} />
           <Route path="/my-travels-driver" element={<MyTravelsDriver />} />
           <Route path="/my-travels" element={<MyTravels />} />
+          <Route path="/travel-profile/:id" element={<TravelProfile />} />
           <Route
             path="/travels"
             element={
@@ -44,7 +50,7 @@ function App() {
         </Routes>
         <div className="not_hide">
           <Toaster
-            position="bottom-center"
+            position="top-left"
             toastOptions={{
               className: "",
               duration: 5000,

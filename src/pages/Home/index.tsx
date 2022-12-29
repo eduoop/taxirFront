@@ -16,7 +16,7 @@ export const Home = () => {
             <div className={styles.text}>
               <div className={styles.logo_end_text}>
                 <h1>TaxIr</h1>
-                <h2>Aqui você <br /> <strong>encontra</strong> <br /> sua viagem!</h2>
+                <h2>Encontre <br /> <strong>agora</strong> <br /> sua viagem!</h2>
               </div>
                 <button onClick={() => navigate('/login', { state: { createNew: true } })}>Comece já</button>
             </div>

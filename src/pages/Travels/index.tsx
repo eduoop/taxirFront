@@ -65,7 +65,7 @@ export const Travels = ({ currentNav, setCurrentNav }: Props) => {
                 <Search search={search} setSearch={setSearch} getData={findTravels} placeholder='Pesquisar viagens'/>
                 <div className={styles.travel_container}>
                     {travels?.map((travel) => (
-                        <TravelCard travel={travel} setTravels={setTravels} travels={travels} ocultPartcip={false} />
+                        <TravelCard travel={travel} setTravels={setTravels} travels={travels} ocultPartcip={false} edit={false} showCloseTravel={false} showDeleteTravel={false}/>
                     ))}
                 </div>
             </main>

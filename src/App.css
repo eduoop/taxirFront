@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
-*, html, body {
+*,
+html,
+body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -21,4 +23,107 @@ a {
   --yellow-primary: #FFE801;
   --yellow-secondary: #E8B516;
   --brown: #200F00;
+}
+
+.rmdp-day.rmdp-selected span:not(.highlight) {
+  background-color: #000000 !important;
+  transition: .3s !important;
+  color: white !important;
+}
+
+.sd {
+  transition: .3s !important;
+}
+
+.sd:hover {
+  background-color: #1e1e1e5f !important;
+}
+
+.rmdp-day.rmdp-today span {
+  background-color: transparent !important;
+  color: black !important;
+}
+
+.rmdp-day.rmdp-today span:hover {
+  background-color: #1e1e1e5f !important;
+  color: white !important;
+}
+
+.rmdp-day,
+.rmdp-week-day {
+  width: 45px !important;
+  height: 40px !important;
+  border: 1px solid #F2F2F2 !important;
+}
+
+.rmdp-day span {
+  bottom: auto !important;
+  top: 6px !important;
+  left: auto !important;
+  right: 6px !important;
+  min-width: 26px !important;
+  min-height: 26px !important;
+}
+
+.rmdp-day,
+.rmdp-week-day {
+  color: #333333;
+}
+
+.rmdp-week-day {
+  color: #333333 !important;
+}
+
+.rmdp-calendar {
+  padding: 0 !important;
+}
+
+.rmdp-day-picker {
+  padding: 0 !important;
+}
+
+.rmdp-ym .rmdp-day {
+  flex: none !important;
+}
+
+.rmdp-header {
+  margin-top: 0 !important;
+}
+
+.rmdp-arrow {
+  border-color: black !important;
+}
+
+
+.rmdp-arrow-container {
+  transition: .3s !important;
+}
+
+.rmdp-arrow-container:hover {
+  background: #33333331 !important;
+}
+
+.rmdp-arrow {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 2px !important;
+}
+
+.rmdp-arrow-container {
+  width: 22px !important;
+  height: 22px !important;
+}
+
+.rmdp-border {
+  border: 2px solid black !important;
+}
+
+.rmdp-calendar span {
+  font-family: 'Roboto';
+}
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 0.5em !important;
+  font-size: 1.2em !important;
+  font-family: 'Roboto' !important;
 }

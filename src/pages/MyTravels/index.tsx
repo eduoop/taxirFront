@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
+import { toast } from 'react-hot-toast'
 import { Search } from '../../components/Search'
 import { TravelCard } from '../../components/TravelCard'
 import { api } from '../../Config/api'
@@ -32,8 +33,9 @@ export const MyTravels = () => {
     const findTravelsFix = () => {
         api.get(`/travels/enter/${auth.user?.id}`, {
             headers: {
-                Authorization: `Bearer ${token}`
-            }
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
+            },
         })
             .then((res) => {
                 setTravels(res.data)
@@ -50,13 +52,29 @@ export const MyTravels = () => {
         findTravelsFix()
     }, [])
 
+    const closeTravel = (id: string) => {
+        api.delete(`/travels/enter/${id}`, {
+            data: {
+                userId: auth.user?.id
+            },
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then(() => {
+                setTravels(travels?.filter(travel => travel.id !== id))
+                toast.success("Você deixou a viagem!")
+            })
+    }
+
     return (
         <div className={styles.container}>
             <main>
-                <Search search={search} setSearch={setSearch} getData={findTravelsDriverSearch} placeholder='Pesquisar minhas viagens'/>
+                <Search search={search} setSearch={setSearch} getData={findTravelsDriverSearch} placeholder='Pesquisar minhas viagens' />
                 <div className={styles.travel_container}>
                     {travels?.map((travel) => (
-                        <TravelCard travel={travel} setTravels={setTravels} travels={travels} ocultPartcip={true} />
+                        <TravelCard hasFunction={closeTravel} travel={travel} setTravels={setTravels} travels={travels} ocultPartcip={true} edit={false} showCloseTravel={true} showDeleteTravel={false}/>
                     ))}
                 </div>
             </main>

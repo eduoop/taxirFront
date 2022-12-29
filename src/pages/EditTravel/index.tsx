@@ -7,30 +7,37 @@ import styles from './styles.module.css'
 import DatePicker, { DateObject } from "react-multi-date-picker"
 import { Calendar } from "react-multi-date-picker"
 import { TextField } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
+import { Travel } from '../../models/travel.model'
 
 const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"]
 const months = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
 const date = new DateObject()
 
-export const CreateTravel = () => {
+export const EditTravel = () => {
 
-  const nowHour = `${date.hour}:${date.minute}`
+  const { id } = useParams()
 
   const navigate = useNavigate()
   const token = localStorage.getItem("authToken")
+  const nowHour = `${date.hour}:${date.minute}`
 
-  const [ufs, setUfs] = useState<UF[]>([])
+  const [ufsFrom, setUfsFrom] = useState<UF[]>([])
+  const [ufsTo, setUfsTo] = useState<UF[]>([])
   const [currentUfFrom, setCurrentUfFrom] = useState('')
   const [currentUfTo, setCurrentUfTo] = useState('')
+  const [currentUfFromDefault, setCurrentUfFromDefault] = useState('')
+  const [currentUfToDefault, setCurrentUfToDefault] = useState('')
   const [fromCity, setFromCity] = useState('')
   const [toCity, setToCity] = useState('')
   const [citys, setCitys] = useState<City[]>([])
+  const [currentTravelEdit, setCurrentTravelEdit] = useState<Travel>()
 
   const [ablePlaces, setAblePlaces] = useState('')
-  const [day, setDay] = useState<DateObject | DateObject[] | null>(date)
-  const [time, setTime] = useState(nowHour);
+  const [day, setDay] = useState<DateObject | DateObject[] | null>(null)
+  const [defaultDay, setDefaultDay] = useState<string>()
+  const [time, setTime] = useState('18:00');
 
   const handleUfChangeFrom = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const uf = e.target.value;
@@ -47,9 +54,10 @@ export const CreateTravel = () => {
   useEffect(() => {
     api.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
       .then((res) => {
-        setUfs(res.data)
+        setUfsFrom(res.data)
+        setUfsTo(res.data)
       })
-  }, [])
+  }, [id])
 
   const getMunicipios = () => {
     api.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${currentUfFrom}/municipios`)
@@ -88,15 +96,15 @@ export const CreateTravel = () => {
   const createTravel = (e: FormEvent) => {
     e.preventDefault();
 
-    if (!currentUfFrom || currentUfFrom === 'none') {
-      toast.error('Escolha o estado da cidade de saída (NA)')
-      return false
-    }
+    // if (!currentUfFrom || currentUfFrom === 'none') {
+    //   toast.error('Escolha o estado da cidade de saída (NA)')
+    //   return false
+    // }
 
-    if (!currentUfTo || currentUfTo === 'none') {
-      toast.error('Escolha o estado da cidade de ída')
-      return false
-    }
+    // if (!currentUfTo || currentUfTo === 'none') {
+    //   toast.error('Escolha o estado da cidade de ída')
+    //   return false
+    // }
 
     if (!fromCity) {
       toast.error('Escolha a cidade da cidade de saída (NA)')
@@ -113,46 +121,100 @@ export const CreateTravel = () => {
       return false
     }
 
-    if(time <= nowHour && day && day.toString() === date.toString()) {
+    if(time < nowHour && day ? day.toString() === date.toString() : defaultDay === date.toString()) {
       toast.error('A hora precisa ser superior á hora atual.')
-      return false
     }
+    // currentUfFrom && currentUfFrom !== 'none' && currentUfTo || currentUfTo === 'none' &&
 
-    if (currentUfFrom && currentUfFrom !== 'none' && currentUfTo || currentUfTo === 'none' && fromCity.trim() && toCity.trim() && (day && day.toString() !== date.toString() ? true : time > nowHour) && ablePlaces && Number(ablePlaces) > 0) {
-      api.post("/travels", {
+    if (fromCity.trim() && toCity.trim() && ablePlaces && Number(ablePlaces) > 0 && day?.toString() === date.toString() ? time > nowHour : true) {
+      api.put(`/travels/${currentTravelEdit?.id}`, {
         from: fromCity,
-        fromState: currentUfFrom,
+        fromState: currentUfFrom ? currentUfFrom : currentUfFromDefault,
         to: toCity,
-        toState: currentUfTo,
+        toState: currentUfTo ? currentUfTo : currentUfToDefault,
         ablePlaces: ablePlaces,
-        start: `${formatObjectDay(day?.toString())}T${time}`
+        start: day ? `${formatObjectDay(day?.toString())}T${time}` : `${formatObjectDay(defaultDay?.toString())}T${time}`
       }, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => {
-        toast.success('Viagem criada com sucesso')
-        navigate('/my-travels-driver')
-      })
+        .then(() => {
+          toast.success('Viagem atualizada com sucesso')
+          navigate('/my-travels-driver')
+        })
+        .catch((err) => {
+          if (err.response.data.message === "A data de criação não pode ser menor a data de hoje") {
+            toast.error('A hora precisa ser superior á hora atual.')
+          }
+        })
     }
-
   }
 
-  console.log(time, nowHour)
+  // specify in edit travel
+
+  useEffect(() => {
+    api.get(`/travels/${id}`, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      setCurrentTravelEdit(res.data)
+    })
+  }, [id])
+
+  const findStateInIbgeStatesFrom = (state: string) => {
+    if (ufsFrom) {
+      setCurrentUfFromDefault(state)
+      setUfsFrom(ufsFrom.filter(ufFulls => ufFulls.sigla !== state))
+    }
+  }
+
+  const findStateInIbgeStatesTo = (state: string) => {
+    if (ufsTo) {
+      setCurrentUfToDefault(state)
+      setUfsTo(ufsTo.filter(ufFulls => ufFulls.sigla !== state))
+    }
+  }
+
+  const getHour = (fullTimeDay: string) => {
+    const justHour = fullTimeDay.split('T')[1]
+    const finalHour = `${justHour.split(':')[0]}:${justHour.split(':')[1]}`
+    setTime(finalHour)
+  }
+
+  const getDate = (fullTimeDay: string) => {
+    const justHour = fullTimeDay.split('T')[0]
+    const finalDay = `${justHour.split('-')[0]}/${justHour.split('-')[1]}/${justHour.split('-')[2]}`
+
+    setDefaultDay(finalDay)
+  }
+
+  useEffect(() => {
+    if (currentTravelEdit) {
+      setFromCity(currentTravelEdit.from)
+      setToCity(currentTravelEdit.to)
+      findStateInIbgeStatesFrom(currentTravelEdit.from_state)
+      findStateInIbgeStatesTo(currentTravelEdit.to_state)
+      setAblePlaces(currentTravelEdit.able_places)
+      getHour(currentTravelEdit.start)
+      getDate(currentTravelEdit.start)
+    }
+  }, [currentTravelEdit])
 
   return (
     <div className={styles.create_travel_container}>
       <div className={styles.header}>
-        <h1>Criar nova viagem</h1>
+        <h1>Editar viagem</h1>
       </div>
       <form onSubmit={(e) => createTravel(e)}>
         <div className={styles.two_items_division}>
           <div className={styles.state_end_city}>
             <select onChange={(e) => { handleUfChangeFrom(e) }} name="uf" id="ufs">
-              <option value={'none'}>NA</option>
-              {ufs && ufs.map((uf) => (
+              <option value={currentUfFromDefault}>{currentUfFromDefault}</option>
+              {ufsFrom && ufsFrom.map((uf) => (
                 <option key={uf.id} value={uf.sigla}>{uf.sigla}</option>
               ))}
             </select>
@@ -161,9 +223,9 @@ export const CreateTravel = () => {
           <BsArrowRightShort fontSize={40} />
           <div className={styles.state_end_city}>
             <select onChange={(e) => { handleUfChangeTo(e) }} name="uf" id="ufs">
-              <option value={'none'}>NA</option>
+              <option value={currentUfToDefault}>{currentUfToDefault}</option>
 
-              {ufs && ufs.map((uf) => (
+              {ufsTo && ufsTo.map((uf) => (
                 <option key={uf.id} value={uf.sigla}>{uf.sigla}</option>
               ))}
             </select>
@@ -227,8 +289,10 @@ export const CreateTravel = () => {
           <div className={styles.calendar}>
             <h2>Selecione o dia da corrida:</h2>
             <Calendar
-              value={day}
-              onChange={setDay}
+              value={day !== null ? day : defaultDay}
+              onChange={(day) => {
+                setDay(day)
+              }}
               minDate={new Date()}
               showOtherDays={true}
               disableYearPicker={true}
@@ -242,7 +306,7 @@ export const CreateTravel = () => {
         </div>
         <div className={styles.save_travel}>
           <button className={styles.cancel_button} onClick={() => navigate('/my-travels-driver')}>Cancelar</button>
-          <button className={styles.create_button}>Criar</button>
+          <button className={styles.create_button}>Salvar</button>
         </div>
       </form>
     </div>

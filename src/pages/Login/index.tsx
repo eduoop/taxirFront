@@ -58,7 +58,7 @@ export const Login = () => {
       setloader(true);
       api
         .post("/users/register", {
-          redirectUrl: "http://127.0.0.1:5173/create-account",
+          redirectUrl: "http://localhost:5173/create-account",
           email: email,
           role: role,
 
@@ -93,7 +93,7 @@ export const Login = () => {
         api
           .post(`/users/forgot-password`, {
             email: email,
-            redirectUrl: "http://127.0.0.1:5173/forgot-password",
+            redirectUrl: "http://localhost:5173/forgot-password",
           })
           .then(() => {
             setloader(false);

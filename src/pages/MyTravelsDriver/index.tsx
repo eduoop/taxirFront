@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
+import { toast } from 'react-hot-toast'
 import { ButtonAddNewTravel } from '../../components/ButtonAddNewTravel'
 import { Search } from '../../components/Search'
 import { TravelCard } from '../../components/TravelCard'
@@ -41,6 +42,22 @@ export const MyTravelsDriver = () => {
             })
     }
 
+    const deleteTravel = (id: string) => {
+        api.delete(`/travels/${id}`, {
+            data: {
+                userId: auth.user?.id
+            },
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then(() => {
+                setTravels(travels?.filter(travel => travel.id !== id))
+                toast.success("Você deletou a viagem!")
+            })
+    }
+
     useEffect(() => {
         if (!search.trim()) {
             findTravelsDriverFix()
@@ -62,7 +79,7 @@ export const MyTravelsDriver = () => {
 
                 <div className={styles.travel_container}>
                     {travels?.map((travel) => (
-                        <TravelCard travel={travel} setTravels={setTravels} travels={travels} ocultPartcip={true} />
+                        <TravelCard hasFunction={deleteTravel} travel={travel} setTravels={setTravels} travels={travels} ocultPartcip={true} edit={true} showCloseTravel={false} showDeleteTravel={true}/>
                     ))}
                 </div>
             </main>

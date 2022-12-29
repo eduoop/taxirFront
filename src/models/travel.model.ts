@@ -4,8 +4,7 @@ export type Travel = {
     id: string;
     from: string;
     to: string;
-    occupiedplaces: string;
-    emptyplaces: string;
+    able_places: string;
     start: string;
     internship: string;
     user_id: string;
