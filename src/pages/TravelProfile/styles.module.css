@@ -1,0 +1,68 @@
+.travel_profile_container {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    background-color: #000;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    padding: 1em;
+    align-items: center;
+}
+
+.header h1 {
+    color: white;
+    font-family: "Roboto";
+    font-weight: 600;
+    font-size: 1.7em;
+}
+
+.travel_profile_container main {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    width: 100%;
+    padding-left: 1em;
+    margin-top: 1em;
+}
+
+.items_division {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.items_division h2 {
+    display: flex;
+    align-items: center;
+    font-family: "Roboto";
+    font-weight: 600;
+    gap: .5em;
+    width: fit-content;
+}
+
+.list_users {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1em;
+    padding-right: 1em;
+    gap: .7em;
+    width: 250px;
+}
+
+.users_list {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 1em;
+}
+
+.users_list h1 {
+    font-family: "Roboto";
+    font-weight: 600;
+    font-size: 1.8em;
+}

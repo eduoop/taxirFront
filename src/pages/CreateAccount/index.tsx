@@ -109,7 +109,7 @@ export const CreateAccount = () => {
               <DisabledInput value={email}/>
             </div>
               <div className={styles.inputs}>
-                <label htmlFor="password">Nome</label>
+                <label htmlFor="password">Nome Completo</label>
                 <Input id="name" name="name" type="text" isNull={nullName} setValue={setName} value={name} setNullCamp={setNullName}/>
               </div>
               <div className={styles.inputs}>

@@ -121,12 +121,9 @@ export const EditTravel = () => {
       return false
     }
 
-    if(time < nowHour && day ? day.toString() === date.toString() : defaultDay === date.toString()) {
-      toast.error('A hora precisa ser superior á hora atual.')
-    }
     // currentUfFrom && currentUfFrom !== 'none' && currentUfTo || currentUfTo === 'none' &&
 
-    if (fromCity.trim() && toCity.trim() && ablePlaces && Number(ablePlaces) > 0 && day?.toString() === date.toString() ? time > nowHour : true) {
+    if (fromCity.trim() && toCity.trim() && ablePlaces && Number(ablePlaces) > 0) {
       api.put(`/travels/${currentTravelEdit?.id}`, {
         from: fromCity,
         fromState: currentUfFrom ? currentUfFrom : currentUfFromDefault,

@@ -16,7 +16,7 @@ const date = new DateObject()
 
 export const CreateTravel = () => {
 
-  const nowHour = `${date.hour}:${date.minute}`
+  const nowHour = `${date.hour}:${date.minute > 9 ? date.minute : `0${date.minute}`}`
 
   const navigate = useNavigate()
   const token = localStorage.getItem("authToken")
@@ -139,8 +139,6 @@ export const CreateTravel = () => {
     }
 
   }
-
-  console.log(time, nowHour)
 
   return (
     <div className={styles.create_travel_container}>
