@@ -13,6 +13,45 @@
     padding: 1em;
 }
 
+.create_travel_container nav {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 1em;
+    margin-top: 1.5em;
+}
+
+.active_nav {
+    font-family: "Roboto";
+    font-weight: 600;
+    font-size: 1.7em;
+    background-color: rgba(255, 214, 67, 0.424);
+    border: 2px solid var(--yellow-secondary);
+    padding: .2em .5em;
+    border-radius: 9px;
+    color: #1c1c1c;
+    transition: .3s;
+    height: fit-content;
+}
+
+.inactive_nav {
+    font-family: "Roboto";
+    font-weight: 600;
+    font-size: 1.7em;
+    padding: .2em .5em;
+    border-radius: 6px;
+    border: 2px solid transparent;
+    color: #1c1c1c;
+    cursor: pointer;
+    transition: .3s;
+    height: fit-content;
+}
+
+.inactive_nav:hover {
+    background-color: rgba(255, 214, 67, 0.511);
+}
+
 .header h1 {
     color: white;
     font-family: "Roboto";
@@ -189,4 +228,106 @@
 .cancel_button:hover {
     background-color: rgba(15, 15, 15, 0.103);
     color: rgba(0, 0, 0, 0.842);
+}
+
+
+.nav_end_content {
+    display: flex;
+    gap: 1em;
+    width: 100%;
+    justify-content: space-around;
+}
+
+/* list users */
+
+.list_users_container {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    margin-top: 2em;
+    width: 786px;
+}
+
+.alert_to_driver {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+
+}
+
+.alert_to_driver h1,
+.alert_to_driver p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.alert_to_driver h1 {
+    font-weight: 500;
+}
+
+.list_users {
+    display: flex;
+    flex-direction: column;
+    padding: .5em;
+    gap: .7em;
+}
+
+.user_card {
+    display: flex;
+    padding: .4em .3em .4em 0;
+    background-color: white;
+    border-radius: 9px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.199);
+    position: relative;
+    align-items: center;
+}
+
+.border_color {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 8px;
+    background-color: rgb(255, 200, 0);
+}
+
+.user_card h1 {
+    margin-left: .7em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.user_card h2 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+}
+
+.actions button {
+    display: flex;
+    align-items: center;
+}
+
+.delete_passenger {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    color: #ff1d0b !important;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.delete_passenger:hover {
+    background-color: #ff1d0b;
+    color: white !important;
 }

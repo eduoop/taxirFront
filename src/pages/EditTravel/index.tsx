@@ -10,6 +10,9 @@ import { TextField } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 import { Travel } from '../../models/travel.model'
+import { User } from '../../models/user.model'
+import { IoClose } from "react-icons/io5"
+import getFirstEndSecondName from '../../Utils/getFirstEndSecondName'
 
 const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"]
 const months = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
@@ -38,6 +41,11 @@ export const EditTravel = () => {
   const [day, setDay] = useState<DateObject | DateObject[] | null>(null)
   const [defaultDay, setDefaultDay] = useState<string>()
   const [time, setTime] = useState('18:00');
+  const [travelUsers, setTravelUsers] = useState<User[]>([])
+  const [travelUsersToDelete, setTravelUsersToDelte] = useState<User[]>([])
+  const [count, setCount] = useState(0)
+
+  const [nav, setNav] = useState('travel')
 
   const handleUfChangeFrom = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const uf = e.target.value;
@@ -93,6 +101,32 @@ export const EditTravel = () => {
     }
   }
 
+  const removePassenger = (passenger: User) => {
+    if (count === 0) {
+      toast.success("Essa operação ainda pode ser cancelada :)")
+      const valueToCount = count + 1
+      setCount(valueToCount)
+    }
+    setTravelUsers(travelUsers.filter(user => user.id !== passenger.id))
+    setTravelUsersToDelte((oldUsers) => [...oldUsers, passenger])
+  }
+
+  const removePassengerToDb = () => {
+    if (travelUsersToDelete) {
+      travelUsersToDelete.map((user) => {
+        api.delete(`/travels/enter/${currentTravelEdit?.id}`, {
+          data: {
+            userId: user.id
+          },
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+      })
+    }
+  }
+
   const createTravel = (e: FormEvent) => {
     e.preventDefault();
 
@@ -137,13 +171,14 @@ export const EditTravel = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then(() => {
+        .then(async () => {
           toast.success('Viagem atualizada com sucesso')
+          removePassengerToDb()
           navigate('/my-travels-driver')
         })
         .catch((err) => {
           if (err.response.data.message === "A data de criação não pode ser menor a data de hoje") {
-            toast.error('A hora precisa ser superior á hora atual.')
+            toast.error('A data e hora de criação não podem ser menor a data de hoje')
           }
         })
     }
@@ -159,6 +194,8 @@ export const EditTravel = () => {
       },
     }).then((res) => {
       setCurrentTravelEdit(res.data)
+      setTravelUsers(res.data.users)
+      setTravelUsers(res.data.users.filter((user: { id: string | undefined }) => user.id !== currentTravelEdit?.user_id))
     })
   }, [id])
 
@@ -206,106 +243,137 @@ export const EditTravel = () => {
       <div className={styles.header}>
         <h1>Editar viagem</h1>
       </div>
-      <form onSubmit={(e) => createTravel(e)}>
-        <div className={styles.two_items_division}>
-          <div className={styles.state_end_city}>
-            <select onChange={(e) => { handleUfChangeFrom(e) }} name="uf" id="ufs">
-              <option value={currentUfFromDefault}>{currentUfFromDefault}</option>
-              {ufsFrom && ufsFrom.map((uf) => (
-                <option key={uf.id} value={uf.sigla}>{uf.sigla}</option>
-              ))}
-            </select>
-            <input value={fromCity} onChange={(e) => setFromCity(e.target.value)} className={styles.text_input} type="text" id='city' placeholder='De (Cidade)' />
-          </div>
-          <BsArrowRightShort fontSize={40} />
-          <div className={styles.state_end_city}>
-            <select onChange={(e) => { handleUfChangeTo(e) }} name="uf" id="ufs">
-              <option value={currentUfToDefault}>{currentUfToDefault}</option>
 
-              {ufsTo && ufsTo.map((uf) => (
-                <option key={uf.id} value={uf.sigla}>{uf.sigla}</option>
-              ))}
-            </select>
-            <input value={toCity} onChange={(e) => setToCity(e.target.value)} className={styles.text_input} type="text" id='city' placeholder='Para (Cidade)' />
-          </div>
-        </div>
-        <div className={styles.places_end_calendar}>
-          <div className={styles.places}>
-            <div className={styles.set_places_name}>
-              <h2>Vagas disponíves no veículo:</h2>
-              <div className={styles.set_places}>
-                <input value={ablePlaces} onChange={(e) => setAblePlaces(e.target.value)} type="number" className={styles.text_input} placeholder='Ex: 5' />
-                <div className={styles.buttons_set}>
-                  <button type='button' onClick={() => removeOne(setAblePlaces, ablePlaces)}>-</button>
-                  <button type='button' onClick={() => addOne(setAblePlaces, ablePlaces)}>+</button>
-                </div>
+      <div className={styles.nav_end_content}>
+        <nav>
+          <h2 onClick={() => setNav('travel')} className={nav === "travel" ? `${styles.active_nav}` : `${styles.inactive_nav}`}>Viagem</h2>
+          <h2 onClick={() => setNav('passengers')} className={nav === "passengers" ? `${styles.active_nav}` : `${styles.inactive_nav}`}>Passageiros</h2>
+        </nav>
+        {nav === 'travel' ?
+          <form onSubmit={(e) => createTravel(e)}>
+            <div className={styles.two_items_division}>
+              <div className={styles.state_end_city}>
+                <select onChange={(e) => { handleUfChangeFrom(e) }} name="uf" id="ufs">
+                  <option value={currentUfFromDefault}>{currentUfFromDefault}</option>
+                  {ufsFrom && ufsFrom.map((uf) => (
+                    <option key={uf.id} value={uf.sigla}>{uf.sigla}</option>
+                  ))}
+                </select>
+                <input value={fromCity} onChange={(e) => setFromCity(e.target.value)} className={styles.text_input} type="text" id='city' placeholder='De (Cidade)' />
+              </div>
+              <BsArrowRightShort fontSize={40} />
+              <div className={styles.state_end_city}>
+                <select onChange={(e) => { handleUfChangeTo(e) }} name="uf" id="ufs">
+                  <option value={currentUfToDefault}>{currentUfToDefault}</option>
+
+                  {ufsTo && ufsTo.map((uf) => (
+                    <option key={uf.id} value={uf.sigla}>{uf.sigla}</option>
+                  ))}
+                </select>
+                <input value={toCity} onChange={(e) => setToCity(e.target.value)} className={styles.text_input} type="text" id='city' placeholder='Para (Cidade)' />
               </div>
             </div>
+            <div className={styles.places_end_calendar}>
+              <div className={styles.places}>
+                <div className={styles.set_places_name}>
+                  <h2>Vagas disponíves no veículo:</h2>
+                  <div className={styles.set_places}>
+                    <input value={ablePlaces} onChange={(e) => setAblePlaces(e.target.value)} type="number" className={styles.text_input} placeholder='Ex: 5' />
+                    <div className={styles.buttons_set}>
+                      <button type='button' onClick={() => removeOne(setAblePlaces, ablePlaces)}>-</button>
+                      <button type='button' onClick={() => addOne(setAblePlaces, ablePlaces)}>+</button>
+                    </div>
+                  </div>
+                </div>
 
-            <div className={styles.add_time}>
-              <h2>Escolha a hora de início:</h2>
-              <TextField
-                id="time"
-                value={time}
-                type="time"
-                onChange={(time) => setTime(time.target.value)}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                inputProps={{
-                  step: 300, // 5 min
-                }}
-                sx={{
-                  width: 250,
-                  borderColor: `#000`,
-                  borderWidth: 2,
-                  borderRadius: '6px',
-                  padding: 0,
-                  "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: `#000`,
-                    borderRadius: '6px',
-                    padding: 0,
-                    borderWidth: 2,
-                  },
-                  ".MuiOutlinedInput-notchedOutline": {
-                    border: "1px solid #000",
-                    borderRadius: '6px',
-                    padding: 0,
-                    borderWidth: 2,
-                  },
-                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                    border: "1px solid #000",
-                    borderRadius: '6px',
-                    padding: 0,
-                    borderWidth: 2,
-                  },
-                }}
-              />
+                <div className={styles.add_time}>
+                  <h2>Escolha a hora de início:</h2>
+                  <TextField
+                    id="time"
+                    value={time}
+                    type="time"
+                    onChange={(time) => setTime(time.target.value)}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    inputProps={{
+                      step: 300, // 5 min
+                    }}
+                    sx={{
+                      width: 250,
+                      borderColor: `#000`,
+                      borderWidth: 2,
+                      borderRadius: '6px',
+                      padding: 0,
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: `#000`,
+                        borderRadius: '6px',
+                        padding: 0,
+                        borderWidth: 2,
+                      },
+                      ".MuiOutlinedInput-notchedOutline": {
+                        border: "1px solid #000",
+                        borderRadius: '6px',
+                        padding: 0,
+                        borderWidth: 2,
+                      },
+                      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        border: "1px solid #000",
+                        borderRadius: '6px',
+                        padding: 0,
+                        borderWidth: 2,
+                      },
+                    }}
+                  />
+                </div>
+              </div>
+              <div className={styles.calendar}>
+                <h2>Selecione o dia da corrida:</h2>
+                <Calendar
+                  value={day !== null ? day : defaultDay}
+                  onChange={(day) => {
+                    setDay(day)
+                  }}
+                  minDate={new Date()}
+                  showOtherDays={true}
+                  disableYearPicker={true}
+                  disableMonthPicker={true}
+                  shadow={false}
+                  months={months}
+                  fullYear={false}
+                  weekDays={weekDays}
+                />
+              </div>
+            </div>
+            <div className={styles.save_travel}>
+              <button className={styles.cancel_button} onClick={() => navigate('/my-travels-driver')}>Cancelar</button>
+              <button type='submit' className={styles.create_button}>Salvar</button>
+            </div>
+          </form>
+          :
+          <div className={styles.list_users_container}>
+            <div className={styles.alert_to_driver}>
+              <h1>Seus passageiros:</h1>
+              <p>Não se esqueça de entrar em contato com seus passageiros para combinar o local de busca e despacho.</p>
+            </div>
+
+            <div className={styles.list_users}>
+              {travelUsers.map((user) => (
+                <div className={styles.user_card}>
+                  <div className={styles.border_color}></div>
+                  <h1 style={{ width: "35%" }}>{getFirstEndSecondName(user.name)}</h1>
+                  <h2 style={{ width: "30%" }}>{user.email}</h2>
+                  <h2 style={{ width: "20%" }}>{user.phone}</h2>
+                  <div className={styles.actions}>
+                    <button onClick={() => removePassenger(user)} className={styles.delete_passenger}><IoClose fontSize={25} /></button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-          <div className={styles.calendar}>
-            <h2>Selecione o dia da corrida:</h2>
-            <Calendar
-              value={day !== null ? day : defaultDay}
-              onChange={(day) => {
-                setDay(day)
-              }}
-              minDate={new Date()}
-              showOtherDays={true}
-              disableYearPicker={true}
-              disableMonthPicker={true}
-              shadow={false}
-              months={months}
-              fullYear={false}
-              weekDays={weekDays}
-            />
-          </div>
-        </div>
-        <div className={styles.save_travel}>
-          <button className={styles.cancel_button} onClick={() => navigate('/my-travels-driver')}>Cancelar</button>
-          <button className={styles.create_button}>Salvar</button>
-        </div>
-      </form>
+        }
+      </div>
+
     </div>
   )
 }
