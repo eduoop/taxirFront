@@ -18,6 +18,6 @@ export const Input = ({ id, type, setValue, isNull = false, value, setNullCamp  
   }, [value])
 
   return (
-    <input className={isNull ? `${styles.input} ${styles.invalid_field}` : `${styles.input}`} type={type} id={id} onChange={(e) => setValue(e.target.value)}/>
+    <input value={value} className={isNull ? `${styles.input} ${styles.invalid_field}` : `${styles.input}`} type={type} id={id} onChange={(e) => setValue(e.target.value)}/>
   )
 }

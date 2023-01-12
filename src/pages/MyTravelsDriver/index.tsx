@@ -66,6 +66,7 @@ export const MyTravelsDriver = () => {
 
     useEffect(() => {
         findTravelsDriverFix()
+        auth.setNav("myTravelsDriver")
     }, [])
 
     return (
@@ -79,7 +80,7 @@ export const MyTravelsDriver = () => {
 
                 <div className={styles.travel_container}>
                     {travels?.map((travel) => (
-                        <TravelCard hasFunction={deleteTravel} travel={travel} setTravels={setTravels} travels={travels} ocultPartcip={true} edit={true} showCloseTravel={false} showDeleteTravel={true}/>
+                        <TravelCard hasFunction={deleteTravel} travel={travel} setTravels={setTravels} travels={travels} ocultPartcip={true} edit={true} showCloseTravel={false} showDeleteTravel={true} showContactDriver={false}/>
                     ))}
                 </div>
             </main>

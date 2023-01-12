@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { api } from '../../Config/api'
 import styles from './styles.module.css'
 import { TravelCard } from '../../components/TravelCard'
@@ -6,6 +6,8 @@ import { Search } from '../../components/Search'
 import { Travel } from '../../models/travel.model'
 import { UF } from '../../models/UF'
 import { City } from '../../models/City'
+import { AuthContext } from '../../context/auth/AuthContext'
+import { GoogleComponent } from 'react-google-location'
 
 type Props = {
     currentNav: string;
@@ -18,7 +20,10 @@ export const Travels = ({ currentNav, setCurrentNav }: Props) => {
     const [search, setSearch] = useState('')
     const [ufs, setUfs] = useState<UF[]>([])
     const [currentUf, setCurrentUf] = useState('')
-    
+    const [location, setLocation] = useState<any>()
+
+    const authContext = useContext(AuthContext);
+
 
     const findTravels = () => {
         if (search.trim()) {
@@ -43,9 +48,9 @@ export const Travels = ({ currentNav, setCurrentNav }: Props) => {
     }, [])
 
     useEffect(() => {
-        if (currentNav !== 'travels') {
-            setCurrentNav('travels')
-        }
+        authContext.setNav("travels")
+
+
     }, [])
 
     useEffect(() => {
@@ -62,10 +67,19 @@ export const Travels = ({ currentNav, setCurrentNav }: Props) => {
     return (
         <div className={styles.container}>
             <main>
-                <Search search={search} setSearch={setSearch} getData={findTravels} placeholder='Pesquisar viagens'/>
+                {/* <GoogleComponent
+                    apiKey={API_KEY}
+                    language={'en'}
+                    country={'country:in|country:us'}
+                    coordinates={true}
+                    locationBoxStyle={'custom-style'}
+                    locationListStyle={'custom-style-list'}
+                    onChange={(e) => { setLocation({ place: e }) }} /> */}
+
+                <Search search={search} setSearch={setSearch} getData={findTravels} placeholder='Pesquisar viagens' />
                 <div className={styles.travel_container}>
                     {travels?.map((travel) => (
-                        <TravelCard travel={travel} setTravels={setTravels} travels={travels} ocultPartcip={false} edit={false} showCloseTravel={false} showDeleteTravel={false}/>
+                        <TravelCard travel={travel} setTravels={setTravels} travels={travels} ocultPartcip={false} edit={false} showCloseTravel={false} showDeleteTravel={false} showContactDriver={false}/>
                     ))}
                 </div>
             </main>

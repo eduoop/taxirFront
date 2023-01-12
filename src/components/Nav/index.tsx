@@ -7,31 +7,34 @@ import { MdPersonOutline } from 'react-icons/md'
 import { FiLogOut } from 'react-icons/fi'
 import { User } from '../../models/user.model';
 import { AuthContext, AuthContextType } from "../../context/auth/AuthContext";
+import { IoChatboxOutline } from "react-icons/io5";
 
 type Props = {
-  currentNav: string;
-  setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
   auth: AuthContextType;
 }
 
-export const Nav = ({ currentNav, setCurrentNav, auth }: Props) => {
+export const Nav = ({ auth }: Props) => {
 
   const token = localStorage.getItem(`authToken`)
+  const authContext = useContext(AuthContext);
 
   return (
     <div className={styles.nav}>
       <ul>
-        <Link to="/travels" onClick={() => { setCurrentNav('travels') }}><li><TbLayoutList className={currentNav === 'travels' ? `${styles.active_nav}` : ''} /></li></Link>
-        { auth.user?.role === "driver" ?
-        <Link to="/my-travels-driver" onClick={() => { setCurrentNav('myTravelsDriver') }}>  <li><RiSuitcase2Line className={currentNav === 'myTravelsDriver' ? `${styles.active_nav}` : ''} /></li></Link>
-        
-        :
-        <Link to="/my-travels" onClick={() => { setCurrentNav('myTravels') }}>  <li><RiSuitcase2Line className={currentNav === 'myTravels' ? `${styles.active_nav}` : ''} /></li></Link>
+        <Link to="/travels" onClick={() => { authContext.setNav('travels') }}><li><TbLayoutList className={authContext.nav === 'travels' ? `${styles.active_nav}` : ''} /></li></Link>
+        {auth.user?.role === "driver" ?
+          <Link to="/my-travels-driver" onClick={() => { authContext.setNav('myTravelsDriver') }}>  <li><RiSuitcase2Line className={authContext.nav === 'myTravelsDriver' ? `${styles.active_nav}` : ''} /></li></Link>
+
+          :
+          <Link to="/my-travels" onClick={() => { authContext.setNav('myTravels') }}>  <li><RiSuitcase2Line className={authContext.nav === 'myTravels' ? `${styles.active_nav}` : ''} /></li></Link>
         }
-        <Link to="/create-account/:key" onClick={() => { setCurrentNav('profile') }}> <li><MdPersonOutline className={currentNav === 'profile' ? `${styles.active_nav}` : ''} /></li></Link>
+        <Link to="/edit-my-profile" onClick={() => { authContext.setNav('profile') }}> <li><MdPersonOutline className={authContext.nav === 'profile' ? `${styles.active_nav}` : ''} /></li></Link>
+        <Link to={`/messages`} onClick={() => {
+          authContext.setNav('messages')
+        }}> <li><IoChatboxOutline className={authContext.nav === 'messages' ? `${styles.active_nav}` : ''} /></li></Link>
         <Link to={`/`} onClick={() => {
           auth.singout(token)
-        }}> <li><FiLogOut className={currentNav === 'logout' ? `${styles.active_nav}` : ''} /></li></Link>
+        }}> <li><FiLogOut className={authContext.nav === 'logout' ? `${styles.active_nav}` : ''} /></li></Link>
       </ul>
     </div>
   )

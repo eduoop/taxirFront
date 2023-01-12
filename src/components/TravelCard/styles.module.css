@@ -2,7 +2,7 @@
     width: calc(100% / 3 - 3rem);
     height: fit-content;
     border-radius: 1rem;
-    padding: .5em;
+    padding: .8em;
     font-family: "Roboto", sans-serif;
     display: flex;
     flex-direction: column;
@@ -21,6 +21,7 @@
     display: flex;
     flex-direction: column;
     align-self: center;
+    width: 100%;
 }
 
 .route h2 {
@@ -87,6 +88,43 @@
 }
 
 .delete_or_close_travel:hover {
+    background-color: #ff2e16;
+    color: white;
+}
+
+.confirm_btn {
+    width: 100%;
+    text-transform: uppercase;
+    background-color: rgb(255, 230, 37);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    border: 2px solid rgb(0, 0, 0);
+    color: #171717;
+    padding: .7em 0;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 1.3em;
+    transition: .3s;
+}
+
+.contact_btn {
+    width: 100%;
+    text-transform: uppercase;
+    background-color: rgb(255, 230, 37);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    border: 2px solid rgb(0, 0, 0);
+    color: #171717;
+    padding: .7em 0;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 1.3em;
+    transition: .3s;
+}
+
+.contact_btn:hover {
     background-color: #ff2e16;
     color: white;
 }

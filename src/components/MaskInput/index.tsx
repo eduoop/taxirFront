@@ -20,6 +20,6 @@ export const MaskInput = ({ id, name, type, mask, isNull = false, value, setValu
   }, [value])
 
   return (
-    <InputMask className={isNull ? `${styles.input} ${styles.invalid_field}` : `${styles.input}`} mask={mask} type={type} name={name} id={id} defaultValue={value} onChange={(e) => setValue(e.target.value)}/>
+    <InputMask value={value} className={isNull ? `${styles.input} ${styles.invalid_field}` : `${styles.input}`} mask={mask} type={type} name={name} id={id} defaultValue={value} onChange={(e) => setValue(e.target.value)}/>
   )
 }

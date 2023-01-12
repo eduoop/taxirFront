@@ -136,6 +136,7 @@ export const CreateTravel = () => {
         toast.success('Viagem criada com sucesso')
         navigate('/my-travels-driver')
       })
+      .catch((err) => {console.log(err)})
     }
 
   }

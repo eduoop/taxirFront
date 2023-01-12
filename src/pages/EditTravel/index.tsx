@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react'
+import React, { FormEvent, useContext, useEffect, useState } from 'react'
 import { BsArrowRightShort } from 'react-icons/bs'
 import { api } from '../../Config/api'
 import { City } from '../../models/City'
@@ -11,8 +11,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 import { Travel } from '../../models/travel.model'
 import { User } from '../../models/user.model'
-import { IoClose } from "react-icons/io5"
+import { IoChatboxOutline, IoClose } from "react-icons/io5"
 import getFirstEndSecondName from '../../Utils/getFirstEndSecondName'
+import { ChatUserContext } from '../../context/userChat/UserChatContext'
 
 const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"]
 const months = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
@@ -21,6 +22,7 @@ const date = new DateObject()
 export const EditTravel = () => {
 
   const { id } = useParams()
+  const userChat = useContext(ChatUserContext);
 
   const navigate = useNavigate()
   const token = localStorage.getItem("authToken")
@@ -187,15 +189,14 @@ export const EditTravel = () => {
   // specify in edit travel
 
   useEffect(() => {
-    api.get(`/travels/${id}`, {
+    api.get(`/travels/enter-driver-view-travel/${id}`, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
       setCurrentTravelEdit(res.data)
-      setTravelUsers(res.data.users)
-      setTravelUsers(res.data.users.filter((user: { id: string | undefined }) => user.id !== currentTravelEdit?.user_id))
+      setTravelUsers(res.data.users.filter((user: { id: string | undefined }, index: number) => index !== 0))
     })
   }, [id])
 
@@ -237,6 +238,11 @@ export const EditTravel = () => {
       getDate(currentTravelEdit.start)
     }
   }, [currentTravelEdit])
+
+  const setUserChat = async (user: User) => {
+    await userChat.setCurrentUser(user)
+    navigate("/messages")
+  }
 
   return (
     <div className={styles.create_travel_container}>
@@ -366,6 +372,7 @@ export const EditTravel = () => {
                   <h2 style={{ width: "20%" }}>{user.phone}</h2>
                   <div className={styles.actions}>
                     <button onClick={() => removePassenger(user)} className={styles.delete_passenger}><IoClose fontSize={25} /></button>
+                    <button onClick={() => setUserChat(user)} className={styles.chat_passenger}><IoChatboxOutline fontSize={20}/></button>
                   </div>
                 </div>
               ))}

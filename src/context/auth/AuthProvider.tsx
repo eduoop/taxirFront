@@ -5,6 +5,8 @@ import { AuthContext } from "./AuthContext";
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [nav, setNav] = useState("")
+  const [showNav, setShowNav] = useState(true)
   const token = localStorage.getItem(`authToken`)
   const api = useApi();
 
@@ -15,6 +17,12 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
       setUser(JSON.parse(recoverdUser));
     }
   }, []);
+
+  useEffect(() => {
+    if(nav !== "messages") {
+      setShowNav(true)
+    }
+  }, [nav])
 
   const signin = async (email: string, password: string) => {
     const data = await api.signin(email, password);
@@ -55,7 +63,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, signin, singout, refreshContex }}>
+    <AuthContext.Provider value={{ user, signin, singout, refreshContex, nav, setNav, setUser, setShowNav, showNav }}>
       {children}
     </AuthContext.Provider>
   );

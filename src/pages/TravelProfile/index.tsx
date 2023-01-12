@@ -63,8 +63,11 @@ export const TravelProfile = () => {
       `https://wa.me/${formateNumber}`,
       '_blank'
     )
-    console.log(formateNumber)
   }
+
+  useEffect(() => {
+    auth.setNav("")
+  }, [])
 
   return (
     <div className={styles.travel_profile_container}>

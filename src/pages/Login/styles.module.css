@@ -4,7 +4,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to right, var(--yellow-primary), var(--yellow-secondary));
+    background: #f0f2f5;
+}
+
+.container main {
+    width: 90%;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 8em;
 }
 
 .login_card {
@@ -12,10 +21,11 @@
     height: fit-content;
     background-color: white;
     border-radius: 7px;
-    width: 25vw;
+    width: 350px;
     display: flex;
     flex-direction: column;
     gap: 1em;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
 }
 
 .form {
@@ -95,7 +105,8 @@
 }
 
 .create a {
-    color: var(--yellow-secondary);;
+    color: var(--yellow-secondary);
+    ;
     cursor: pointer;
     font-weight: 500;
 }
@@ -126,13 +137,51 @@
 }
 
 .forgot_password a {
-    color: var(--yellow-secondary);;
+    color: var(--yellow-secondary);
+    ;
     cursor: pointer;
     font-weight: 500;
     font-size: .9em;
 }
 
+.logo_side {
+    display: flex;
+    flex-direction: column;
+    width: 470px;
+    gap: .5em;
+    height: 300px;
+}
+
+.logo_side h2 {
+    font-size: 30px;
+    line-height: 30px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 500;
+    padding-bottom: .4em;
+    padding-left: .2em;
+}
+
+.logo_side img {
+    width: 170px;
+}
+
 @media (max-width: 800px) {
+    .container main {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .logo_side {
+        width: auto;
+    }
+
+    .logo_side h2 {
+        width: auto;
+        font-size: 20px;
+        padding-bottom: 0em;
+    }
+
     .login_card {
         width: 100%;
     }

@@ -50,6 +50,7 @@ export const MyTravels = () => {
 
     useEffect(() => {
         findTravelsFix()
+        auth.setNav("myTravels")
     }, [])
 
     const closeTravel = (id: string) => {
@@ -74,7 +75,7 @@ export const MyTravels = () => {
                 <Search search={search} setSearch={setSearch} getData={findTravelsDriverSearch} placeholder='Pesquisar minhas viagens' />
                 <div className={styles.travel_container}>
                     {travels?.map((travel) => (
-                        <TravelCard hasFunction={closeTravel} travel={travel} setTravels={setTravels} travels={travels} ocultPartcip={true} edit={false} showCloseTravel={true} showDeleteTravel={false}/>
+                        <TravelCard hasFunction={closeTravel} travel={travel} setTravels={setTravels} travels={travels} ocultPartcip={true} edit={false} showCloseTravel={true} showDeleteTravel={false} showContactDriver={true}/>
                     ))}
                 </div>
             </main>

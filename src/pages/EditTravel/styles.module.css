@@ -328,6 +328,21 @@
 }
 
 .delete_passenger:hover {
-    background-color: #ff1d0b;
+    background-color: #ff1b0ba8;
+    color: white !important;
+}
+
+.chat_passenger {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    color: #E8B516 !important;
+    cursor: pointer;
+    transition: .3s;
+    padding: .2em;
+}
+
+.chat_passenger:hover {
+    background-color: #e8b41690;
     color: white !important;
 }

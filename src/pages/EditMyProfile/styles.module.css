@@ -1,0 +1,89 @@
+.edit_profile_container {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+}
+
+.edit_profile_card {
+    width: 50%;
+    background-color: white;
+    box-shadow: 4px 4px 10px rgb(0 0 0 / 33%);
+    border-radius: 1rem;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    margin-top: 2em;
+}
+
+.input_end_label {
+    display: flex;
+    width: 95%;
+    flex-direction: column;
+    gap: .3em;
+}
+
+.input_end_label label {
+    text-transform: uppercase;
+    font-weight: 500;
+    color: rgb(30, 30, 30);
+    font-size: .9em;
+
+}
+
+.actions {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 95%;
+    gap: 1em;
+}
+
+.create_button {
+    width: fit-content;
+    text-transform: uppercase;
+    background-color: black;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    border: 1px solid black;
+    padding: 0.7em 2em;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 1.3em;
+    transition: .3s;
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+}
+
+.create_button:hover {
+    background-color: transparent;
+    color: black;
+}
+
+.cancel_button {
+    width: fit-content;
+    text-transform: uppercase;
+    background-color: transparent;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    border: 1px solid black;
+    padding: 0.7em 2em;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 1.3em;
+    transition: .3s;
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+}
+
+.cancel_button:hover {
+    background-color: rgba(15, 15, 15, 0.103);
+    color: rgba(0, 0, 0, 0.842);
+}

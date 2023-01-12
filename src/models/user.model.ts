@@ -1,5 +1,5 @@
 export type User = {
-    id: string;
+    id: number;
     name: string;
     role: string;
     phone: string;
@@ -7,5 +7,5 @@ export type User = {
     performed_travels: number;
     created_at: string;
     updated_at: string;
-    remember_me_token: string;
+    remember_me_token: null;
 }

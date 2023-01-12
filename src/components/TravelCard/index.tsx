@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import { AuthContext } from '../../context/auth/AuthContext';
 import { Travel } from '../../models/travel.model'
@@ -9,6 +9,7 @@ import { BiUser } from 'react-icons/bi';
 import { api } from '../../Config/api';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { ChatUserContext } from '../../context/userChat/UserChatContext';
 
 
 
@@ -20,14 +21,19 @@ type Props = {
   edit: boolean;
   showCloseTravel: boolean;
   showDeleteTravel: boolean;
+  showContactDriver: boolean;
   hasFunction?: (id: string) => void;
 }
 
 
-export const TravelCard = ({ travel, setTravels, travels, ocultPartcip = false, edit, showCloseTravel, hasFunction, showDeleteTravel }: Props) => {
+export const TravelCard = ({ travel, setTravels, travels, ocultPartcip = false, edit, showCloseTravel, hasFunction, showDeleteTravel, showContactDriver }: Props) => {
+
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [confirmClose, setConfirmClose] = useState(false)
+  const userChat = useContext(ChatUserContext);
 
   const has = () => {
-    if(hasFunction) {
+    if (hasFunction) {
       hasFunction(travel.id)
     }
   }
@@ -69,6 +75,22 @@ export const TravelCard = ({ travel, setTravels, travels, ocultPartcip = false, 
     }
   }
 
+  useEffect(() => {
+    if(confirmDelete === true) {
+      setTimeout(() => {
+        setConfirmDelete(false)
+      }, 2500)
+    }
+  }, [confirmDelete])
+
+  useEffect(() => {
+    if(confirmClose === true) {
+      setTimeout(() => {
+        setConfirmClose(false)
+      }, 2500)
+    }
+  }, [confirmClose])
+
   return (
     <div className={styles.travel_card}>
       <div className={styles.route}>
@@ -97,11 +119,25 @@ export const TravelCard = ({ travel, setTravels, travels, ocultPartcip = false, 
         {edit === true &&
           <button className={styles.participe} onClick={() => navigate(`/edit-travel/${travel.id}`)}>Editar</button>
         }
-        {showCloseTravel === true &&
-          <button className={styles.delete_or_close_travel} onClick={() => has()}>Sair</button>
+        {showCloseTravel === true && confirmClose === false &&
+          <button className={styles.delete_or_close_travel} onClick={() => setConfirmClose(true)}>Sair</button>
         }
-        {showDeleteTravel === true &&
-          <button className={styles.delete_or_close_travel} onClick={() => has()}>Deletar</button>
+        {showDeleteTravel === true && confirmDelete === false &&
+          <button className={styles.delete_or_close_travel} onClick={() => setConfirmDelete(true)}>Deletar</button>
+        }
+        {confirmDelete === true &&
+          <button className={styles.confirm_btn} onClick={() => has()}>Confirmar</button>
+        }
+
+        {confirmClose === true &&
+          <button className={styles.confirm_btn} onClick={() => has()}>Confirmar</button>
+        }
+
+        {showContactDriver === true &&
+          <button className={styles.participe} onClick={() => {
+            userChat.setCurrentUser(travel.user)
+            navigate("/messages")
+          }}>Motorista</button>
         }
       </div>
     </div>
