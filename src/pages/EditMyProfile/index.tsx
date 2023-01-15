@@ -1,7 +1,10 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import ReactCrop from 'react-image-crop'
+import { Crop } from "react-image-crop/dist/types";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../../components/Input";
+import InputAvatar from "../../components/InputAvatar";
 import { MaskInput } from "../../components/MaskInput";
 import { api } from "../../Config/api";
 import { AuthContext } from "../../context/auth/AuthContext";
@@ -30,6 +33,8 @@ export const EditMyProfile = () => {
 
   const [phone, setPhone] = useState("")
   const [nullPhone, setNullPhone] = useState(false)
+
+  const [image, setImage] = useState<any>();
 
   const token = localStorage.getItem("authToken")
 
@@ -81,6 +86,19 @@ export const EditMyProfile = () => {
           toast.success("Perfil editado com sucesso")
           navigate(-1)
         })
+
+      api.put('/users/avatar', {
+        file: image && image
+      }, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          auth.setUser(res.data)
+        })
+
     } else if (name && email && phone && password && passwordConfirmation && password === passwordConfirmation) {
       api.put(`/profiles`, {
         name: name,
@@ -97,6 +115,19 @@ export const EditMyProfile = () => {
           toast.success("Perfil editado com sucesso")
           navigate(-1)
         })
+
+      api.put('/users/avatar', {
+        file: image && image
+      }, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          auth.setUser(res.data)
+        })
+
     } else if (name && email && phone && password && passwordConfirmation && password !== passwordConfirmation) {
       toast.error("As senhas não são iguais")
       setNullPassword(true)
@@ -131,6 +162,10 @@ export const EditMyProfile = () => {
   return (
     <div className={styles.edit_profile_container}>
       <form onSubmit={(e) => submit(e)} className={styles.edit_profile_card}>
+        <div className={styles.send_avatar}>
+          <InputAvatar image={image} user={auth.user && auth.user} setImage={setImage} />
+        </div>
+
         <div className={styles.input_end_label}>
           <label htmlFor="name">Nome:</label>
           <Input id="name" isNull={nullName} name={name} setNullCamp={setNullName} setValue={setName} type="text" value={name}></Input>

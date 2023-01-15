@@ -12,6 +12,13 @@
     height: 60px;
     align-items: center;
     padding-left: 1em;
+    gap: .5em;
+}
+
+.chat_header img {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
 }
 
 .chat_header h2 {

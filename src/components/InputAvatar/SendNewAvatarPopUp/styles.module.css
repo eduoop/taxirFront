@@ -1,0 +1,59 @@
+.set_avatar_main {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3em;
+}
+
+.actions {
+    display: flex;
+    justify-content: end;
+    gap: 1em;
+}
+
+.save_button {
+    width: fit-content;
+    text-transform: uppercase;
+    background-color: black;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    border: 1px solid black;
+    padding: 0.7em 2em;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 1.3em;
+    transition: .3s;
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+}
+
+.create_button:hover {
+    background-color: transparent;
+    color: black;
+}
+
+.cancel_button {
+    width: fit-content;
+    text-transform: uppercase;
+    background-color: transparent;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    border: 1px solid black;
+    padding: 0.7em 2em;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 1.3em;
+    transition: .3s;
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+}
+
+.cancel_button:hover {
+    background-color: rgba(15, 15, 15, 0.103);
+    color: rgba(0, 0, 0, 0.842);
+}

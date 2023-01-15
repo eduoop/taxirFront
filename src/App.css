@@ -127,3 +127,8 @@ a {
   font-size: 1.2em !important;
   font-family: 'Roboto' !important;
 }
+
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+  width: fit-content !important;
+  max-width: fit-content !important;
+}

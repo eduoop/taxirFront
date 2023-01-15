@@ -147,7 +147,7 @@
 .logo_side {
     display: flex;
     flex-direction: column;
-    width: 470px;
+    width: 520px;
     gap: .5em;
     height: 300px;
 }
@@ -167,13 +167,18 @@
 
 @media (max-width: 800px) {
     .container main {
-        display: flex;
         flex-direction: column;
         width: 100%;
+        gap: 1em;
+        justify-content: start;
     }
 
     .logo_side {
         width: auto;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
     }
 
     .logo_side h2 {

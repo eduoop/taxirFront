@@ -83,7 +83,11 @@ export const ListConversations = ({ conversations, setConversations, currentConv
 
             <div className={styles.top}>
                 <div className={styles.top_items}>
-                    <h2>{auth.user && getFirstEndSecondName(auth.user.name)}</h2>
+                    {auth.user?.avatar?.url ?
+                        <img src={auth.user?.avatar?.url} />
+                        :
+                        <h2>{auth.user && getFirstEndSecondName(auth.user.name)}</h2>
+                    }
                     {auth.showNav === true ?
                         <IoClose color="#e6e9ec" fontSize={30} cursor="pointer" onClick={() => auth.setShowNav(!auth.showNav)} />
                         :
@@ -133,9 +137,14 @@ export const ListConversations = ({ conversations, setConversations, currentConv
                             setCurrentConversation(conversation)
                         }} className={currentFriend && currentFriend.id === conversation.user.id ? `${styles.user_chat_container_active}` : `${styles.user_chat_container}`}>
                             <div className={styles.align_with_header}>
-                                <div className={styles.user_img}>
-                                    <HiUser color="#d1d7db" fontSize={25} />
-                                </div>
+                                {!conversation.user.avatar?.url ?
+                                    <div className={styles.user_img}>
+                                        <HiUser color="#d1d7db" fontSize={25} />
+                                    </div>
+                                    :
+                                    <img style={{ width: "50px", height: "50px", borderRadius: "50%"}} src={conversation.user.avatar?.url} alt="" />
+                                 }
+
                                 <div className={styles.infos}>
                                     <h2>{conversation.user.name}</h2>
                                 </div>

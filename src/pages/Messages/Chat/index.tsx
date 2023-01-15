@@ -6,6 +6,7 @@ import { AuthContext } from "../../../context/auth/AuthContext";
 import styles from './styles.module.css'
 import { io } from "socket.io-client"
 import { User } from "../../../models/user.model";
+import { HiUser } from "react-icons/hi";
 
 type Props = {
   setCurrentConversation: React.Dispatch<React.SetStateAction<Conversation | undefined>>;
@@ -129,6 +130,11 @@ export const Chat = ({ currentConversation, setCurrentConversation, curentFriend
   return (
     <div className={styles.chat_container}>
       <div className={styles.chat_header}>
+        {curentFriend.avatar?.url ?
+          <img src={curentFriend.avatar?.url} />
+          :
+          <HiUser color="#d1d7db" fontSize={25} />
+        }
         <h2>{curentFriend.name}</h2>
       </div>
       <div className={styles.chat}>

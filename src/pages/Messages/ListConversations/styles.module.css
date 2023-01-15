@@ -19,7 +19,15 @@
 
 .top_items {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 90%;
+}
+
+.top_items img {
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
 }
 
 .top h2 {
@@ -145,6 +153,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.user_img img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
 }
 
 .infos h2 {

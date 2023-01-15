@@ -8,4 +8,7 @@ export type User = {
     created_at: string;
     updated_at: string;
     remember_me_token: null;
+    avatar?: {
+        url: string;
+    }
 }

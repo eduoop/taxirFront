@@ -12,17 +12,7 @@ export type Conversation = {
   user_id_two: number;
   created_at: string;
   updated_at: string;
-  user: {
-    id: number;
-    name: string;
-    role: string;
-    phone: string;
-    email: string;
-    remember_me_token: null,
-    performed_travels: number;
-    created_at: string;
-    updated_at: string;
-  }
+  user: User
 }
 
 export const Messages = () => {

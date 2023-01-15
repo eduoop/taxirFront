@@ -16,14 +16,17 @@
     "@types/react-input-mask": "^3.0.1",
     "axios": "^0.27.2",
     "react": "^18.2.0",
+    "react-avatar-edit": "^1.2.0",
     "react-dom": "^18.2.0",
     "react-google-location": "^1.2.2",
     "react-hot-toast": "^2.3.0",
     "react-icons": "^4.4.0",
+    "react-image-crop": "^10.0.9",
     "react-input-mask": "^2.0.4",
     "react-multi-date-picker": "^3.3.4",
     "react-router-dom": "^6.3.0",
     "socket.io-client": "^4.5.4",
+    "styled-components": "^5.3.6",
     "use-context": "^0.0.1"
   },
   "devDependencies": {
