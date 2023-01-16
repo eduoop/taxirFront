@@ -8,6 +8,7 @@ import { FiLogOut } from 'react-icons/fi'
 import { User } from '../../models/user.model';
 import { AuthContext, AuthContextType } from "../../context/auth/AuthContext";
 import { IoChatboxOutline } from "react-icons/io5";
+import LogoText from '../../assets/logo_simbol.png'
 
 type Props = {
   auth: AuthContextType;
@@ -35,6 +36,7 @@ export const Nav = ({ auth }: Props) => {
         <Link to={`/`} onClick={() => {
           auth.singout(token)
         }}> <li><FiLogOut className={authContext.nav === 'logout' ? `${styles.active_nav}` : ''} /></li></Link>
+        <img src={LogoText} alt="Logo" />
       </ul>
     </div>
   )

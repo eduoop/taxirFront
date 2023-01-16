@@ -346,3 +346,20 @@
     background-color: #e8b41690;
     color: white !important;
 }
+
+@media (max-width: 800px) {
+    .two_items_division {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .places_end_calendar {
+        flex-direction: column;
+    }
+
+    .calendar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

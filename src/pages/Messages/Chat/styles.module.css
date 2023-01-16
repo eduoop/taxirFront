@@ -13,6 +13,8 @@
     align-items: center;
     padding-left: 1em;
     gap: .5em;
+    z-index: 1;
+    box-shadow: 0 2px 7px rgba(22, 22, 22, 0.832);
 }
 
 .chat_header img {

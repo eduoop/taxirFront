@@ -93,6 +93,8 @@
     padding: .2em .5em;
     font-size: 1.5em;
     border-radius: 9px;
+    width: 40px;
+    text-align: center;
     cursor: pointer;
 }
 
@@ -189,4 +191,21 @@
 .cancel_button:hover {
     background-color: rgba(15, 15, 15, 0.103);
     color: rgba(0, 0, 0, 0.842);
+}
+
+@media (max-width: 800px) {
+    .two_items_division {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .places_end_calendar {
+        flex-direction: column;
+    }
+
+    .calendar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }

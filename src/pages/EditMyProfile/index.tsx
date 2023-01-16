@@ -178,13 +178,15 @@ export const EditMyProfile = () => {
           <label htmlFor="phone">Telefone:</label>
           <MaskInput mask="(99) 99999-9999" id="phone" name="phone" type="tel" isNull={nullPhone} value={phone} setValue={setPhone} setNullCamp={setNullPhone} />
         </div>
-        <div className={styles.input_end_label}>
-          <label htmlFor="password">Senha:</label>
-          <Input id="password" isNull={nullPassword} name={password} setNullCamp={setNullPassword} setValue={setPassword} type="password" value={password}></Input>
-        </div>
-        <div className={styles.input_end_label}>
-          <label htmlFor="password-confirmation">Confirmar senha:</label>
-          <Input id="password-confirmation" isNull={nullPasswordConfirmation} name={passwordConfirmation} setNullCamp={setNullPasswordConfirmation} setValue={setPasswordConfirmation} type="password" value={passwordConfirmation}></Input>
+        <div className={styles.passwords}>
+          <div className={styles.input_end_label}>
+            <label htmlFor="password">Senha:</label>
+            <Input id="password" isNull={nullPassword} name={password} setNullCamp={setNullPassword} setValue={setPassword} type="password" value={password}></Input>
+          </div>
+          <div className={styles.input_end_label}>
+            <label htmlFor="password-confirmation">Confirmar senha:</label>
+            <Input id="password-confirmation" isNull={nullPasswordConfirmation} name={passwordConfirmation} setNullCamp={setNullPasswordConfirmation} setValue={setPasswordConfirmation} type="password" value={passwordConfirmation}></Input>
+          </div>
         </div>
         <div className={styles.actions}>
           <button type="button" onClick={() => navigate(-1)} className={styles.cancel_button}>Cancelar</button>

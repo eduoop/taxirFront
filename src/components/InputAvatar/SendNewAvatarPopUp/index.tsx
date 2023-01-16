@@ -14,6 +14,8 @@ export default function SendNewAvatarPopUp({ open, setOpen, setImage, setPreview
 
     const [src, setSrc] = useState(undefined)
 
+    const width = window.innerWidth
+
     const onClose = () => {
         setPreviewMain(undefined)
     }
@@ -25,6 +27,8 @@ export default function SendNewAvatarPopUp({ open, setOpen, setImage, setPreview
     const handleClose = () => {
         setOpen(false);
     };
+
+    console.log(width)
 
     //   convert image to Blob
 
@@ -71,29 +75,26 @@ export default function SendNewAvatarPopUp({ open, setOpen, setImage, setPreview
 
             <div className={styles.set_avatar_main}>
                 <Avatar
-                    width={700}
+                    width={width > 600 ? 700 : width-150}
                     height={300}
                     onCrop={onCrop}
                     onClose={onClose}
                     src={src}
                     label="Escolher imagem"
                 ></Avatar>
-            <div className={styles.actions}>
-                <button onClick={() => {
-                    setPreviewMain(undefined)
-                    setOpen(false)
-                }} className={styles.cancel_button}>Cancelar</button>
-                <button onClick={() => {
-                    setImage(convert(previewMain))
-                    setOpen(false)
-                }} className={styles.save_button}>Concluir</button>
+                <div className={styles.actions}>
+                    <button onClick={() => {
+                        setPreviewMain(undefined)
+                        setOpen(false)
+                    }} className={styles.cancel_button}>Cancelar</button>
+                    <button onClick={() => {
+                        setImage(convert(previewMain))
+                        setOpen(false)
+                    }} className={styles.save_button}>Concluir</button>
+                </div>
             </div>
-        </div>
 
-
-
-            {/* <img src={preview} /> */ }
-
+            {/* <img src={preview} /> */}
 
         </Dialog >
     )

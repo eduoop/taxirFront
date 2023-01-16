@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react'
-import { BsArrowRightShort } from 'react-icons/bs'
+import { BsArrow90DegDown, BsArrowDown, BsArrowRightShort } from 'react-icons/bs'
 import { api } from '../../Config/api'
 import { City } from '../../models/City'
 import { UF } from '../../models/UF'
@@ -27,6 +27,8 @@ export const CreateTravel = () => {
   const [fromCity, setFromCity] = useState('')
   const [toCity, setToCity] = useState('')
   const [citys, setCitys] = useState<City[]>([])
+
+  const width = window.innerWidth
 
   const [ablePlaces, setAblePlaces] = useState('')
   const [day, setDay] = useState<DateObject | DateObject[] | null>(date)
@@ -159,7 +161,12 @@ export const CreateTravel = () => {
             </select>
             <input value={fromCity} onChange={(e) => setFromCity(e.target.value)} className={styles.text_input} type="text" id='city' placeholder='De (Cidade)' />
           </div>
+          {width > 600 ?
           <BsArrowRightShort fontSize={40} />
+          
+          :
+          <BsArrowDown fontSize={40} />
+          }
           <div className={styles.state_end_city}>
             <select onChange={(e) => { handleUfChangeTo(e) }} name="uf" id="ufs">
               <option value={'none'}>NA</option>
